@@ -41,4 +41,4 @@ O Desafio no total seria fazer um leitor de Json para um Objeto Cliente.
 6- Plus - Deverá ser implementado um Request a uma API Rest e feito os passos acima;
 
 ```
-* (Objeto Fortemente tipado já está escrito - para ganharmos tempo);
+* (Objeto Fortemente tipado já está escrito - para ganharmos tempo); 
