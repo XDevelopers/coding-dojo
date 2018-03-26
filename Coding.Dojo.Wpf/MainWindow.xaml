@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Coding.Dojo.Wpf"
         mc:Ignorable="d"
-        Title="Cadastro de Clientes" Width="800" Height="600" >
+        Title="Cadastro de Clientes - Coding Dojô - BETA" Width="800" Height="600" ResizeMode="NoResize" >
     <Grid x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="260"></ColumnDefinition>
@@ -27,7 +27,7 @@
             <Button Grid.Row="1" Content="Validar Clientes" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="160" Click="ValidarClientesClick" />
             <Button Grid.Row="2" Content="Clientes da Internet" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="160" Click="PegarClientesClick" Visibility="Visible" />
         </Grid>
-        
+
         <!-- Grid para organizar as DataGrids etc -->
         <Grid x:Name="GridResults" Grid.ColumnSpan="3" Grid.Row="1">
             <DataGrid x:Name="DadosImportados" 
@@ -37,5 +37,6 @@
                       Width="760"
                       RowHeight="30" />
         </Grid>
+        <Image  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Height="150" Margin="0,5,0,0" VerticalAlignment="Stretch" Width="465"  Source="splashScreen.png"/>
     </Grid>
 </Window>
