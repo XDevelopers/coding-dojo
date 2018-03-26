@@ -12,7 +12,7 @@ using System.Windows.Media;
 namespace Coding.Dojo.Wpf
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Tela principal do Cadastro de Clientes - CodingDojô
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -34,16 +34,20 @@ namespace Coding.Dojo.Wpf
             // Faz a Procura por um arquivo que atenda ao Fitro configurado acima!
             if (openFileDialog.ShowDialog() == true)
             {
-                var json = File.ReadAllText(openFileDialog.FileName);
-                if (!string.IsNullOrWhiteSpace(json))
+                // Ler o Conteúdo de um arquivo (texto | json) em uma linha de código
+                var filePath = openFileDialog.FileName;
+                var json = "##Pegar o Conteúdo de um arquivo texto!"; //INSERIR aqui um função para ler o Conteudo de um arquivo (Texto | Json)
+
+                if (true) // Validar se o Conteudo foi lido ou não 
                 {
-                    // Chama os Métodos para:
+                    // Se conseguiu pegar o Json, então deverá [ 1- Converte em uma Lista fortemente tipada, 2- Preencher a Grid ]
                     // Converter o Json em um (Lista de Objetos)
                     var clientes = ConvertJson(json);
 
-                    // Preencher a DataGrid com a (Lista dos Objetos)
-                    if (clientes.Any())
+                    // Validar se o objeto existe antes de passar ao método que irá preencher a DataGrid
+                    if (true)
                     {
+                        // Preencher a DataGrid com a (Lista dos Objetos)
                         LoadDataGrid(clientes);
                     }
                 }
@@ -53,11 +57,12 @@ namespace Coding.Dojo.Wpf
         private void ValidarClientesClick(object sender, RoutedEventArgs e)
         {
             // Pegar os dados que estão dentro da DataGrid e Repopula-los somente com os Adultos
-            var clientes = new List<ClienteViewModel>((IEnumerable<ClienteViewModel>)DadosImportados.ItemsSource);
+            var clientes = DadosImportados.ItemsSource;
             if (!clientes.Any())
                 return;
 
-            var idadeAdulta = DateTime.Now.AddYears(-18).Date;
+            var idadeAdulta = DateTime.Now;// devem ser maiores que 18 anos;
+
             var clientesAdultos = clientes
                 .Where(c => c.DataNascimento >= idadeAdulta)
                 .Select(c =>
@@ -78,7 +83,7 @@ namespace Coding.Dojo.Wpf
 
         #region [ Helpers ]
 
-        private IEnumerable<Cliente> ConvertJson(string json)
+        private object ConvertJson(string json)
         {
             if (string.IsNullOrWhiteSpace(json))
                 return null;
@@ -86,8 +91,9 @@ namespace Coding.Dojo.Wpf
             // Instancia o Manager
             var manager = new Managers.ClienteManager();
 
+            // Usando uma Classe de Helper Deserializar o JSON
             // Deserializa o Json
-            var result = manager.Deserialize<List<Cliente>>(json);
+            var result = manager.Deserialize<object>(json);
 
             if (result == null)
                 return null;
@@ -95,12 +101,11 @@ namespace Coding.Dojo.Wpf
             return result;
         }
 
-        private void LoadDataGrid(IEnumerable<Cliente> clientes)
+        private void LoadDataGrid(object clientes)
         {
-            DadosImportados.ItemsSource = clientes.Select(c => 
-            {
-                return new ClienteViewModel(c);
-            }).ToList();
+            DadosImportados.ItemsSource = clientes;
+
+            // Usando a lista acima melhorar a exibição para Exibir o Endereço corretamente. (Quem sabe usando uma ViewModel) !
 
             // Limpa o Estilo da Grid
             DadosImportados.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFF0F0F0")); //DadosImportados.Background = Brushes.White;
@@ -112,25 +117,28 @@ namespace Coding.Dojo.Wpf
         {
             var baseUrl = $"https://my.api.mockaroo.com/codingdojo.json?key=beda91c0";
 
-            var restClient = new RestClient(baseUrl);
-            var request = new RestRequest(Method.GET);
+            //var restClient = new Client Rest (baseUrl);
+            //var request = new Request Rest(Method.GET);
 
-            request.AddHeader("Content-Type", "application/json");
+            //request.AddHeader("Content-Type", "application/json");
 
-            var response = restClient.Execute(request);
-            if (response != null && response.Content != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            //var response = Client Rest.Execute(request);// manda o comando de Execução do Request solicitado
+
+            // Valida o Resultado
+            //if (response != null && response.Content != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (true)
             {
-                var json = response.Content;
+                //var json = response.Content;
 
                 // Chama os Métodos para:
                 // Converter o Json em um (Lista de Objetos)
-                var clientes = ConvertJson(json);
+                //var clientes = ConvertJson(json);
 
                 // Preencher a DataGrid com a (Lista dos Objetos)
-                if (clientes.Any())
-                {
-                    LoadDataGrid(clientes);
-                }
+                //if (clientes.Any())
+                //{
+                //    LoadDataGrid(clientes);
+                //}
             }
             else
             {

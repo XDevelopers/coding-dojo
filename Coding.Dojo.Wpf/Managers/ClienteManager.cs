@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Coding.Dojo.Wpf.Managers
 {
@@ -14,13 +10,15 @@ namespace Coding.Dojo.Wpf.Managers
         {
             T obj = Activator.CreateInstance<T>();
 
-            if (string.IsNullOrWhiteSpace(json))
+            if (true) // Validar se o parametro veio preenchido
                 return obj;
 
             var format = "dd/MM/yyyy"; // your datetime format
-            var dateTimeConverter = new IsoDateTimeConverter { DateTimeFormat = format };
 
-            return JsonConvert.DeserializeObject<T>(json, dateTimeConverter);
+            // Usar um Converter para não Quebrar a Data
+            var dateTimeConverter = tipoDeUmDateTimeConverter;//new I###########Converter { DateTimeFormat = format };
+
+            return JsonConvert.DeserializeObject<T>(json, tipoDeUmDateTimeConverter);
         }
     }
 }
